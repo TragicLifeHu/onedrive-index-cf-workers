@@ -33,6 +33,7 @@
     "ioredis": "^5.8.2",
     "jszip": "^3.10.1",
     "mpegts.js": "1.8.0",
+    "music-metadata": "^11.10.5",
     "next": "16.0.10",
     "nextjs-progressbar": "^0.0.16",
     "path-browserify": "^1.0.1",

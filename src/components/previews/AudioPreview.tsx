@@ -1,5 +1,6 @@
 import type { OdFileObject } from '../../types'
 import { FC, useEffect, useRef, useState } from 'react'
+import type { IAudioMetadata } from 'music-metadata'
 
 import ReactAudioPlayer from 'react-audio-player'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -29,6 +30,24 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
   // Render audio thumbnail, and also check for broken thumbnails
   const thumbnail = `/api/thumbnail?path=${encodeURIComponent(asPath)}&size=medium${hashedToken ? `&odpt=${hashedToken}` : ''}`
   const [brokenThumbnail, setBrokenThumbnail] = useState(false)
+
+  const [metadata, setMetadata] = useState<IAudioMetadata | null>(null)
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const { parseBlob } = await import('music-metadata')
+        const audioUrl = `/api/raw?path=${asPath}${hashedToken ? `&odpt=${hashedToken}` : ''}`
+        const res = await fetch(audioUrl)
+        if (!res.ok) return
+        const blob = await res.blob()
+        const meta = await parseBlob(blob)
+        setMetadata(meta)
+      } catch (err) {
+        console.error('Failed to fetch audio metadata:', err)
+      }
+    })()
+  }, [asPath, hashedToken])
 
   useEffect(() => {
     // Manually get the HTML audio element and set onplaying event.
@@ -86,7 +105,32 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
 
           <div className="flex w-full flex-col justify-between">
             <div>
-              <div className="mb-2 font-medium">{file.name}</div>
+              <div className="mb-2 font-medium text-lg leading-snug truncate">
+                {metadata?.common?.title || file.name}
+              </div>
+              {metadata && (
+                <div className="mb-2 flex flex-col space-y-0.5">
+                  <div className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">
+                    {metadata.common.artist || 'Unknown Artist'}
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    {[
+                      metadata.common.album,
+                      metadata.common.track.no ? `Track ${metadata.common.track.no}` : null,
+                    ]
+                      .filter(Boolean)
+                      .join(' • ')}
+                  </div>
+                  {metadata.common.albumartist && metadata.common.albumartist !== metadata.common.artist && (
+                    <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      Album Artist: {metadata.common.albumartist}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div className="mb-4 text-xs text-gray-400 font-mono truncate">{file.name}</div>
+
               <div className="mb-4 text-sm text-gray-500">
                 {'Last modified:' + ' ' + formatModifiedDateTime(file.lastModifiedDateTime)}
               </div>

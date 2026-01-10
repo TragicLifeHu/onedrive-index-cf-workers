@@ -19,6 +19,7 @@ export default function Folders() {
       <Head>
         <title>{title}</title>
         <meta property="og:title" content={title} />
+        <meta property="og:description" content="ODI-CFW: An OneDrive File Index Service on Cloudflare Worker." />
         <meta name="twitter:title" content={title} />
       </Head>
 

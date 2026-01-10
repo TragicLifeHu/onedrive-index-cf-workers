@@ -19,8 +19,11 @@ export default function Folders() {
       <Head>
         <title>{title}</title>
         <meta property="og:title" content={title} />
-        <meta property="og:description" content="ODI-CFW: An OneDrive File Index Service on Cloudflare Worker." />
+        <meta property="og:description" content="ODI-CFW: An OneDrive File Index Service on Cloudflare Workers." />
+        <meta property="og:image" content={siteConfig.icon} />
         <meta name="twitter:title" content={title} />
+        <meta name="twitter:image" content={siteConfig.icon} />
+        <meta name="twitter:card" content="summary" />
       </Head>
 
       <main className="flex w-full flex-1 flex-col bg-gray-50 dark:bg-gray-800">

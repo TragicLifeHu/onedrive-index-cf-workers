@@ -50,20 +50,64 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
   }, [asPath, hashedToken])
 
   useEffect(() => {
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: metadata?.common?.title || file.name,
+        artist: metadata?.common?.artist || undefined,
+        album: metadata?.common?.album || undefined,
+        artwork: [
+          { src: thumbnail, sizes: '512x512', type: 'image/png' },
+        ],
+      })
+    }
+  }, [metadata, file, thumbnail])
+
+  useEffect(() => {
     // Manually get the HTML audio element and set onplaying event.
     // - As the default event callbacks provided by the React component does not guarantee playing state to be set
     // - properly when the user seeks through the timeline or the audio is buffered.
     const rap = rapRef.current?.audioEl.current
     if (rap) {
+      const updateSessionState = (state: 'playing' | 'paused' | 'none') => {
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.playbackState = state
+        }
+      }
+
       rap.oncanplay = () => setPlayerStatus(PlayerState.Ready)
-      rap.onended = () => setPlayerStatus(PlayerState.Paused)
-      rap.onpause = () => setPlayerStatus(PlayerState.Paused)
-      rap.onplay = () => setPlayerStatus(PlayerState.Playing)
-      rap.onplaying = () => setPlayerStatus(PlayerState.Playing)
+      rap.onended = () => {
+        setPlayerStatus(PlayerState.Paused)
+        updateSessionState('none')
+      }
+      rap.onpause = () => {
+        setPlayerStatus(PlayerState.Paused)
+        updateSessionState('paused')
+      }
+      rap.onplay = () => {
+        setPlayerStatus(PlayerState.Playing)
+        updateSessionState('playing')
+      }
+      rap.onplaying = () => {
+        setPlayerStatus(PlayerState.Playing)
+        updateSessionState('playing')
+      }
       rap.onseeking = () => setPlayerStatus(PlayerState.Loading)
       rap.onwaiting = () => setPlayerStatus(PlayerState.Loading)
-      rap.onerror = () => setPlayerStatus(PlayerState.Paused)
+      rap.onerror = () => {
+        setPlayerStatus(PlayerState.Paused)
+        updateSessionState('none')
+      }
       rap.onvolumechange = () => setPlayerVolume(rap.volume)
+
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', () => rap.play())
+        navigator.mediaSession.setActionHandler('pause', () => rap.pause())
+        navigator.mediaSession.setActionHandler('seekto', (details) => {
+          if (details.seekTime !== undefined) {
+            rap.currentTime = details.seekTime
+          }
+        })
+      }
     }
   }, [])
 

@@ -108,6 +108,19 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
           }
         })
       }
+
+      return () => {
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.playbackState = 'none'
+          navigator.mediaSession.setActionHandler('play', null)
+          navigator.mediaSession.setActionHandler('pause', null)
+          navigator.mediaSession.setActionHandler('seekto', null)
+          navigator.mediaSession.metadata = null
+        }
+        rap.pause()
+        rap.removeAttribute('src')
+        rap.load()
+      }
     }
   }, [])
 

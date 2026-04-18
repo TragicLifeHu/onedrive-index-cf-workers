@@ -1,5 +1,5 @@
 import type { OdFileObject } from '../../types'
-import { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import type { IAudioMetadata } from 'music-metadata'
 
 import ReactAudioPlayer from 'react-audio-player'
@@ -55,9 +55,7 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
         title: metadata?.common?.title || file.name,
         artist: metadata?.common?.artist || undefined,
         album: metadata?.common?.album || undefined,
-        artwork: [
-          { src: thumbnail, sizes: '512x512', type: 'image/png' },
-        ],
+        artwork: [{ src: thumbnail, sizes: '512x512', type: 'image/png' }],
       })
     }
   }, [metadata, file, thumbnail])
@@ -102,7 +100,7 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
       if ('mediaSession' in navigator) {
         navigator.mediaSession.setActionHandler('play', () => rap.play())
         navigator.mediaSession.setActionHandler('pause', () => rap.pause())
-        navigator.mediaSession.setActionHandler('seekto', (details) => {
+        navigator.mediaSession.setActionHandler('seekto', details => {
           if (details.seekTime !== undefined) {
             rap.currentTime = details.seekTime
           }
@@ -141,7 +139,6 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
 
             {!brokenThumbnail ? (
               <div className="absolute m-4 aspect-square rounded-full shadow-lg">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className={`h-full w-full rounded-full object-cover object-top ${
                     playerStatus === PlayerState.Playing ? 'animate-spin-slow' : ''
@@ -162,31 +159,28 @@ const AudioPreview: FC<{ file: OdFileObject }> = ({ file }) => {
 
           <div className="flex w-full flex-col justify-between">
             <div>
-              <div className="mb-2 font-medium text-lg leading-snug truncate">
+              <div className="mb-2 truncate text-lg leading-snug font-medium">
                 {metadata?.common?.title || file.name}
               </div>
               {metadata && (
                 <div className="mb-2 flex flex-col space-y-0.5">
-                  <div className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">
+                  <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-200">
                     {metadata.common.artist || 'Unknown Artist'}
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                    {[
-                      metadata.common.album,
-                      metadata.common.track.no ? `Track ${metadata.common.track.no}` : null,
-                    ]
+                  <div className="truncate text-xs text-gray-500 dark:text-gray-400">
+                    {[metadata.common.album, metadata.common.track.no ? `Track ${metadata.common.track.no}` : null]
                       .filter(Boolean)
                       .join(' • ')}
                   </div>
                   {metadata.common.albumartist && metadata.common.albumartist !== metadata.common.artist && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    <div className="truncate text-xs text-gray-500 dark:text-gray-400">
                       Album Artist: {metadata.common.albumartist}
                     </div>
                   )}
                 </div>
               )}
 
-              <div className="mb-4 text-xs text-gray-400 font-mono truncate">{file.name}</div>
+              <div className="mb-4 truncate font-mono text-xs text-gray-400">{file.name}</div>
 
               <div className="mb-4 text-sm text-gray-500">
                 {'Last modified:' + ' ' + formatModifiedDateTime(file.lastModifiedDateTime)}

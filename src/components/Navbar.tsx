@@ -7,7 +7,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 import siteConfig from '../../config/site.config'
 import SearchModal from './SearchModal'
@@ -31,7 +31,7 @@ const Navbar = () => {
   useEffect(() => {
     const storedToken = () => {
       for (const r of siteConfig.protectedRoutes) {
-        if (localStorage.hasOwnProperty(r)) {
+        if (Object.prototype.hasOwnProperty.call(localStorage, r)) {
           return true
         }
       }
@@ -165,13 +165,13 @@ const Navbar = () => {
 
                 <div className="mt-8 flex items-center justify-end">
                   <button
-                    className="mr-3 inline-flex items-center justify-center space-x-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300"
+                    className="mr-3 inline-flex items-center justify-center space-x-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-400 focus:ring focus:ring-blue-300 focus:outline-none"
                     onClick={() => setIsOpen(false)}
                   >
                     {'Cancel'}
                   </button>
                   <button
-                    className="inline-flex items-center justify-center space-x-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300"
+                    className="inline-flex items-center justify-center space-x-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-400 focus:ring focus:ring-red-300 focus:outline-none"
                     onClick={() => clearTokens()}
                   >
                     <FontAwesomeIcon icon={['far', 'trash-alt']} />

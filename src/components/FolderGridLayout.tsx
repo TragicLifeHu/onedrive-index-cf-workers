@@ -1,7 +1,7 @@
 import type { OdFolderChildren } from '../types'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useClipboard } from 'use-clipboard-copy'
 
@@ -14,7 +14,9 @@ const GridItem = ({ c, path }: { c: OdFolderChildren; path: string }) => {
   // We use the generated medium thumbnail for rendering preview images (excluding folders)
   const hashedToken = getStoredToken(path)
   const thumbnailUrl =
-    'folder' in c ? null : `/api/thumbnail?path=${encodeURIComponent(path)}&size=medium${hashedToken ? `&odpt=${hashedToken}` : ''}`
+    'folder' in c
+      ? null
+      : `/api/thumbnail?path=${encodeURIComponent(path)}&size=medium${hashedToken ? `&odpt=${hashedToken}` : ''}`
 
   // Some thumbnails are broken, so we check for onerror event in the image component
   const [brokenThumbnail, setBrokenThumbnail] = useState(false)
@@ -23,7 +25,6 @@ const GridItem = ({ c, path }: { c: OdFolderChildren; path: string }) => {
     <div className="space-y-2">
       <div className="h-32 overflow-hidden rounded border border-gray-900/10 dark:border-gray-500/30">
         {thumbnailUrl && !brokenThumbnail ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             className="h-full w-full object-cover object-top"
             src={thumbnailUrl}

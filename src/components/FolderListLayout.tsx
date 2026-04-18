@@ -1,7 +1,7 @@
 import type { OdFolderChildren } from '../types'
 
 import Link from 'next/link'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { useClipboard } from 'use-clipboard-copy'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -102,7 +102,7 @@ const FolderListLayout = ({
 
       {folderChildren.map((c: OdFolderChildren) => (
         <div
-          className="grid grid-cols-12 transition-all duration-100 hover:bg-gray-100 dark:hover:bg-gray-850"
+          className="dark:hover:bg-gray-850 grid grid-cols-12 transition-all duration-100 hover:bg-gray-100"
           key={c.id}
         >
           <Link

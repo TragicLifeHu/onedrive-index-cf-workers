@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import useSystemTheme from '../../utils/useSystemTheme'
 import { useRouter } from 'next/router'
 

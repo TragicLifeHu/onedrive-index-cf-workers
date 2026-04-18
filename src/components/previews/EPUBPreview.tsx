@@ -1,6 +1,6 @@
 import type { OdFileObject } from '../../types'
 
-import { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 

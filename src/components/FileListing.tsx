@@ -1,5 +1,5 @@
 import { ParsedUrlQuery } from 'querystring'
-import { FC, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react'
+import React, { FC, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import toast, { Toaster } from 'react-hot-toast'
 import emojiRegex from 'emoji-regex'
@@ -143,7 +143,11 @@ export const Downloading: FC<{ title: string; style: string }> = ({ title, style
 const extractNextData = (html: string): any | null => {
   const match = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/)
   if (match && match[1]) {
-    try { return JSON.parse(match[1]) } catch { /* ignore */ }
+    try {
+      return JSON.parse(match[1])
+    } catch {
+      /* ignore */
+    }
   }
   return null
 }
@@ -178,7 +182,11 @@ const FileListing: FC<{ query?: ParsedUrlQuery }> = ({ query }) => {
 
     return (
       <PreviewContainer>
-        {error.status === 401 ? <Auth redirect={path} /> : <FourOhFour errorMsg={errorMsg} errorStatus={error.status} />}
+        {error.status === 401 ? (
+          <Auth redirect={path} />
+        ) : (
+          <FourOhFour errorMsg={errorMsg} errorStatus={error.status} />
+        )}
       </PreviewContainer>
     )
   }

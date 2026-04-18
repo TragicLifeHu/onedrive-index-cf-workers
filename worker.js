@@ -29,6 +29,7 @@ const worker = {
               let ogTitleFound = false;
               let twitterTitleFound = false;
 
+              // eslint-disable-next-line no-undef
               return new HTMLRewriter()
                 .on('title', {
                   element(element) {

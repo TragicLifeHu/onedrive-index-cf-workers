@@ -1,6 +1,6 @@
 import type { OdFileObject } from '../../types'
 
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import type { PlyrOptions, PlyrSource } from 'plyr-react'
@@ -63,7 +63,7 @@ const VideoPlayer: FC<{
 
   // Inject subtitles via blob URLs to improve reliability across environments
   useEffect(() => {
-    let revoked: string[] = []
+    const revoked: string[] = []
     const timer = window.setTimeout(async () => {
       try {
         if (!subtitles.length) return
@@ -81,14 +81,14 @@ const VideoPlayer: FC<{
             const url = URL.createObjectURL(blob)
             tr.setAttribute('src', url)
             revoked.push(url)
-          } catch {}
+          } catch { /* empty */ }
         }
-        // Force textTracks to showing
+        // Force textTracks to show
         const tt = video.textTracks
         for (let i = 0; i < tt.length; i++) {
           tt[i].mode = i === 0 ? 'showing' : 'hidden'
         }
-      } catch {}
+      } catch { /* empty */ }
     }, 300)
     return () => {
       window.clearTimeout(timer)
@@ -145,13 +145,7 @@ const VideoPreview: FC<{ file: OdFileObject }> = ({ file }) => {
   const [subtitles, setSubtitles] = useState<{ label: string; src: string }[]>([])
 
   const parentPath = asPath.substring(0, asPath.lastIndexOf('/'))
-  const { data } = useSWR(
-    [
-      `/api?path=${parentPath}`,
-      hashedToken,
-    ],
-    fetcher
-  )
+  const { data } = useSWR([`/api?path=${parentPath}`, hashedToken], fetcher)
 
   // Replace previous useMemo subtitles with a paginated collector
   useEffect(() => {
@@ -187,7 +181,7 @@ const VideoPreview: FC<{ file: OdFileObject }> = ({ file }) => {
         try {
           const url = `/api?path=${parentPath}&next=${encodeURIComponent(next)}`
           const resp = await fetch(url, {
-            headers: hashedToken ? { 'od-protected-token': hashedToken } as any : undefined,
+            headers: hashedToken ? ({ 'od-protected-token': hashedToken } as any) : undefined,
           })
           if (!resp.ok) break
           const page = await resp.json()
@@ -262,22 +256,30 @@ const VideoPreview: FC<{ file: OdFileObject }> = ({ file }) => {
             btnIcon="pen"
           />
           <DownloadButton
-            onClickCallback={() => { window.location.href = `iina://weblink?url=${getBaseUrl()}${videoUrl}` }}
+            onClickCallback={() => {
+              window.location.href = `iina://weblink?url=${getBaseUrl()}${videoUrl}`
+            }}
             btnText="IINA"
             btnImage="/players/iina.png"
           />
           <DownloadButton
-            onClickCallback={() => { window.location.href = `vlc://${getBaseUrl()}${videoUrl}` }}
+            onClickCallback={() => {
+              window.location.href = `vlc://${getBaseUrl()}${videoUrl}`
+            }}
             btnText="VLC"
             btnImage="/players/vlc.png"
           />
           <DownloadButton
-            onClickCallback={() => { window.location.href = `potplayer://${getBaseUrl()}${videoUrl}` }}
+            onClickCallback={() => {
+              window.location.href = `potplayer://${getBaseUrl()}${videoUrl}`
+            }}
             btnText="PotPlayer"
             btnImage="/players/potplayer.png"
           />
           <DownloadButton
-            onClickCallback={() => { window.location.href = `nplayer-http://${window?.location.hostname ?? ''}${videoUrl}` }}
+            onClickCallback={() => {
+              window.location.href = `nplayer-http://${window?.location.hostname ?? ''}${videoUrl}`
+            }}
             btnText="nPlayer"
             btnImage="/players/nplayer.png"
           />

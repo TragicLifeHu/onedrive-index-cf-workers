@@ -1,12 +1,14 @@
 /**
- * This file contains the configuration used for customising the website, such as the folder to share,
+ * This file contains the configuration used for customizing the website, such as the folder to share,
  * the title, used Google fonts, site icons, contact info, etc.
  */
+// eslint-disable-next-line no-undef
 module.exports = {
-  // This is what we use to identify who you are when you are initialising the website for the first time.
+  // This is what we use to identify who you are when you are initializing the website for the first time.
   // Make sure this is exactly the same as the email address you use to sign in to your Microsoft account.
   // You can also put this in your worker's environment variable if you worry about
   // your email being exposed in public.
+  // eslint-disable-next-line no-undef
   userPrincipalName: process.env.USER_PRINCIPLE_NAME || 'tragiclifehu@duck.com',
 
   // [OPTIONAL] This is the website icon to the left of the title inside the navigation bar. It should be placed under the

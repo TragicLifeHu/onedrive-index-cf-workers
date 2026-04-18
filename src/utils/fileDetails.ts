@@ -20,9 +20,9 @@ export const humanFileSize = (size: number) => {
 /**
  * Convert the last modified date time into locale friendly string
  *
- * @param lastModifedDateTime DateTime string in ISO format
+ * @param lastModifiedDateTime DateTime string in ISO format
  * @returns Human readable form of the file or folder last modified date
  */
-export const formatModifiedDateTime = (lastModifedDateTime: string) => {
-  return dayjs(lastModifedDateTime).format(siteConfig.datetimeFormat)
+export const formatModifiedDateTime = (lastModifiedDateTime: string) => {
+  return dayjs(lastModifiedDateTime).format(siteConfig.datetimeFormat)
 }

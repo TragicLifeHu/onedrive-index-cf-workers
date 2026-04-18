@@ -1,3 +1,4 @@
+import React from 'react'
 import { NextRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import JSZip from 'jszip'
@@ -188,14 +189,16 @@ export async function* traverseFolder(path: string): AsyncGenerator<TraverseItem
       i,
       path,
       data: await fetcher([
-        next ? `/api?path=${encodeURIComponent(path)}&next=${encodeURIComponent(next)}` : `/api?path=${encodeURIComponent(path)}`,
+        next
+          ? `/api?path=${encodeURIComponent(path)}&next=${encodeURIComponent(next)}`
+          : `/api?path=${encodeURIComponent(path)}`,
         hashedToken ?? undefined,
       ]).catch(error => ({ i, path, error })),
     }
   }
 
   // Pool containing Promises of folder requests
-  let pool = [await genTask(0, path)]
+  const pool = [await genTask(0, path)]
 
   // Map as item buffer for folders with pagination
   const buf: { [k: string]: TraverseItem[] } = {}

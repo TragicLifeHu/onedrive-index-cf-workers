@@ -1,6 +1,6 @@
 import type { OdFileObject } from '../../types'
 
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 
 import { PreviewContainer, DownloadBtnContainer } from './Containers'
@@ -14,7 +14,6 @@ const ImagePreview: FC<{ file: OdFileObject }> = ({ file }) => {
   return (
     <>
       <PreviewContainer>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="mx-auto"
           src={`/api/raw?path=${encodeURIComponent(asPath)}${hashedToken ? `&odpt=${hashedToken}` : ''}`}

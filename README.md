@@ -1,4 +1,4 @@
-<div align="center">
+<div>
   <img src="./public/header.png" alt="onedrive-cf-index-ng" />
   <h3><a href="https://pan.lyc8503.net">onedrive-cf-index-ng</a></h3>
   <p><em>OneDrive public directory listing forked from <a href="https://github.com/spencerwooo/onedrive-vercel-index">onedrive-vercel-index</a>, powered by Cloudflare and Next.js</em></p>
@@ -23,8 +23,8 @@
 Showcase, share, preview, and download files inside *your* OneDrive with onedrive-cf-index-ng -
 
 - Completely free to host 💸
-- Super fast ⚡ and responsive 💦
-- Takes less than 15 minutes to setup ⏱️
+- Superfast ⚡ and responsive 💦
+- Takes less than 15 minutes to set up ⏱️
 - Highly customisable ⚒️
 
 🍌 More importantly, we are pretty (●'◡'●)
@@ -66,7 +66,7 @@ Live demo at [lyc8503's Fileshare](https://pan.lyc8503.net).
       </td>
     </tr>
     <tr>
-      <td>PDF, EPUB, markdown, code, plain text</td>
+      <td>PDF, EPUB, Markdown, code, plain text</td>
       <td>For previewing images and documents with thumbnails</td>
       <td>mp4, mp3, ..., play online or with IINA, PotPlayer ... with subtitles!</td>
     </tr>
@@ -108,7 +108,7 @@ Live demo at [lyc8503's Fileshare](https://pan.lyc8503.net).
 
 - Streamlined deployment, without having to get your tokens manually anymore!
 - Direct raw-file serving and hosting ...
-- Full dark mode support, style and website customisations ...
+- Full dark mode support, style and website customizations ...
 
 > **Note**: This project is focused on showcasing and providing a way for others to download files from your OneDrive. Emphasis on **free** and **serverless**. If you have your own server / need WebDAV / use cloud providers other than OneDrive, checkout [alist](https://github.com/alist-org/alist).
 
@@ -119,7 +119,7 @@ Documentation is hosted at [GitHub Wiki](https://github.com/lyc8503/onedrive-cf-
 - [How can I get started and deploy?](https://github.com/lyc8503/onedrive-cf-index-ng/wiki/Getting-Started)
 - [How can I configure ... ?](https://github.com/lyc8503/onedrive-cf-index-ng/wiki/Configurations)
 - Where is feature ... ?
-  - [Docs - Password protected folders](https://ovi.swo.moe/docs/features/protected-folders)
+  - [Docs - Password-protected folders](https://ovi.swo.moe/docs/features/protected-folders)
   - [Docs - Multi-file and folder download](https://ovi.swo.moe/docs/features/multi-file-folder-download)
   - [Docs - Hosting files (images) directly](https://ovi.swo.moe/docs/features/hosting-images-directly)
   - [Docs - Search for files and folders](https://ovi.swo.moe/docs/features/search-for-files-and-folders)
@@ -143,8 +143,8 @@ Yes! Completely free with no backend server what-so-ever.
 - [ ] Some TODOs left in the code
 - [x] More tests
 
-<div align="center">
-  <img src="./public/footer.png" />
+<div>
+  <img src="./public/footer.png"  alt="footer"/>
   <em>made with ❤️ by <a href="https://lyc8503.net">lyc8503</a> & <a href="https://spencerwoo.com">spencer woo</a></em>
 </div>
 

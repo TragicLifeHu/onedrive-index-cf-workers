@@ -1,4 +1,4 @@
-import { Dispatch, Fragment, SetStateAction, useRef, useState } from 'react'
+import React, { Dispatch, Fragment, SetStateAction, useRef, useState } from 'react'
 import { Description, Dialog, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useClipboard } from 'use-clipboard-copy'
@@ -71,7 +71,10 @@ export default function CustomEmbedLinkMenu({
           leaveTo="opacity-0 scale-95"
         >
           <div className="fixed inset-0 z-10 flex items-start justify-center px-4 text-center" onClick={closeMenu}>
-            <div className="mt-24 mb-12 inline-block max-h-[80vh] w-full max-w-3xl transform overflow-hidden rounded border border-gray-400/30 bg-white text-left align-middle text-sm shadow-xl transition-all dark:bg-gray-900 dark:text-white" onClick={e => e.stopPropagation()}>
+            <div
+              className="mt-24 mb-12 inline-block max-h-[80vh] w-full max-w-3xl transform overflow-hidden rounded border border-gray-400/30 bg-white text-left align-middle text-sm shadow-xl transition-all dark:bg-gray-900 dark:text-white"
+              onClick={e => e.stopPropagation()}
+            >
               <div className="relative flex items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
                 <DialogTitle as="h3" className="text-xl font-bold">
                   {'Customise direct link'}
@@ -92,34 +95,34 @@ export default function CustomEmbedLinkMenu({
                   </>
                 </Description>
 
-              <div className="mt-4">
-                <h4 className="py-2 text-xs font-medium tracking-wider uppercase">{'Filename'}</h4>
-                <input
-                  className="mb-2 w-full rounded border border-gray-600/10 p-2.5 font-mono focus:ring focus:ring-blue-300 focus:outline-none dark:bg-gray-600 dark:text-white dark:focus:ring-blue-700"
-                  ref={focusInputRef}
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                />
+                <div className="mt-4">
+                  <h4 className="py-2 text-xs font-medium tracking-wider uppercase">{'Filename'}</h4>
+                  <input
+                    className="mb-2 w-full rounded border border-gray-600/10 p-2.5 font-mono focus:ring focus:ring-blue-300 focus:outline-none dark:bg-gray-600 dark:text-white dark:focus:ring-blue-700"
+                    ref={focusInputRef}
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                  />
 
-                <LinkContainer
-                  title={'Default'}
-                  value={`${getBaseUrl()}/api/raw?path=${encodeURIComponent(readablePath)}${hashedToken ? `&odpt=${hashedToken}` : ''}`}
-                />
-                <LinkContainer
-                  title={'URL encoded'}
-                  value={`${getBaseUrl()}/api/raw?path=${encodeURIComponent(path)}${hashedToken ? `&odpt=${hashedToken}` : ''}`}
-                />
-                <LinkContainer
-                  title={'Customised'}
-                  value={`${getBaseUrl()}/api/name/${encodeURIComponent(name)}?path=${encodeURIComponent(readablePath)}${
-                    hashedToken ? `&odpt=${hashedToken}` : ''
-                  }`}
-                />
-                <LinkContainer
-                  title={'Customised and encoded'}
-                  value={`${getBaseUrl()}/api/name/${encodeURIComponent(name)}?path=${encodeURIComponent(path)}${hashedToken ? `&odpt=${hashedToken}` : ''}`}
-                />
-              </div>
+                  <LinkContainer
+                    title={'Default'}
+                    value={`${getBaseUrl()}/api/raw?path=${encodeURIComponent(readablePath)}${hashedToken ? `&odpt=${hashedToken}` : ''}`}
+                  />
+                  <LinkContainer
+                    title={'URL encoded'}
+                    value={`${getBaseUrl()}/api/raw?path=${encodeURIComponent(path)}${hashedToken ? `&odpt=${hashedToken}` : ''}`}
+                  />
+                  <LinkContainer
+                    title={'Customised'}
+                    value={`${getBaseUrl()}/api/name/${encodeURIComponent(name)}?path=${encodeURIComponent(readablePath)}${
+                      hashedToken ? `&odpt=${hashedToken}` : ''
+                    }`}
+                  />
+                  <LinkContainer
+                    title={'Customised and encoded'}
+                    value={`${getBaseUrl()}/api/name/${encodeURIComponent(name)}?path=${encodeURIComponent(path)}${hashedToken ? `&odpt=${hashedToken}` : ''}`}
+                  />
+                </div>
               </div>
             </div>
           </div>

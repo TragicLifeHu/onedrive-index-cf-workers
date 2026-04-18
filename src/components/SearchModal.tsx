@@ -1,6 +1,6 @@
 import axios from 'axios'
 import useSWR, { SWRResponse } from 'swr'
-import { Dispatch, Fragment, SetStateAction, useState } from 'react'
+import React, { Dispatch, Fragment, SetStateAction, useState } from 'react'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 import { useAsync } from 'react-async-hook'
 import useConstant from 'use-constant'
@@ -131,7 +131,7 @@ function SearchResultItemLoadRemote({ result }: { result: OdSearchResult[number]
     )
   }
   // TODO siteConfig.baseDirectory sometimes cannot be retrieved from Cloudflare workers env
-  const driveItemPath = `${mapAbsolutePath(data.parentReference.path).replace(siteConfig.baseDirectory, "")}/${encodeURIComponent(data.name)}`
+  const driveItemPath = `${mapAbsolutePath(data.parentReference.path).replace(siteConfig.baseDirectory, '')}/${encodeURIComponent(data.name)}`
   return (
     <SearchResultItemTemplate
       driveItem={result}
@@ -211,7 +211,10 @@ export default function SearchModal({
           leaveTo="opacity-0 scale-95"
         >
           <div className="fixed inset-0 z-10 flex items-start justify-center px-4 text-center" onClick={closeSearchBox}>
-            <div className="mt-24 mb-12 inline-block w-full max-w-3xl transform overflow-hidden rounded border border-gray-400/30 text-left shadow-xl transition-all align-middle" onClick={e => e.stopPropagation()}>
+            <div
+              className="mt-24 mb-12 inline-block w-full max-w-3xl transform overflow-hidden rounded border border-gray-400/30 text-left align-middle shadow-xl transition-all"
+              onClick={e => e.stopPropagation()}
+            >
               <DialogTitle
                 as="h3"
                 className="flex items-center space-x-4 border-b border-gray-400/30 bg-gray-50 p-4 dark:bg-gray-800 dark:text-white"
@@ -227,9 +230,7 @@ export default function SearchModal({
                 />
                 <div className="rounded-lg bg-gray-200 px-2 py-1 text-xs font-medium dark:bg-gray-700">ESC</div>
               </DialogTitle>
-              <div
-                className="max-h-[80vh] overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900 dark:text-white"
-              >
+              <div className="max-h-[80vh] overflow-x-hidden overflow-y-auto bg-white dark:bg-gray-900 dark:text-white">
                 {results.loading && (
                   <div className="px-4 py-12 text-center text-sm font-medium">
                     <LoadingIcon className="svg-inline--fa mr-2 inline-block h-4 w-4 animate-spin" />

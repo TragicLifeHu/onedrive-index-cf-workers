@@ -43,7 +43,10 @@ export function useProtectedSWRInfinite(path: string = '') {
     if (pageIndex === 0) return [`/api?path=${encodeURIComponent(path)}`, hashedToken]
 
     // Add nextPage token to API endpoint
-    return [`/api?path=${encodeURIComponent(path)}&next=${encodeURIComponent(previousPageData.next ?? '')}`, hashedToken]
+    return [
+      `/api?path=${encodeURIComponent(path)}&next=${encodeURIComponent(previousPageData.next ?? '')}`,
+      hashedToken,
+    ]
   }
 
   // Disable auto-revalidate, these options are equivalent to useSWRImmutable

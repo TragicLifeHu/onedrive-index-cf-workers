@@ -28,4 +28,5 @@ const nextConfig = {
   // distDir: 'dist',
 }
 
+// eslint-disable-next-line no-undef
 module.exports = nextConfig

@@ -2,7 +2,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"main": "worker.js",
 	"name": "onedrive-index-worker",
-	"compatibility_date": "2025-09-13",
+	"compatibility_date": "2026-04-17",
 	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
 	"keep_vars": true,
 	"assets": {

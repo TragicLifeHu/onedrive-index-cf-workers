@@ -18,7 +18,7 @@ import { DownloadBtnContainer, PreviewContainer } from './Containers'
 import Loading from '../Loading'
 import CustomEmbedLinkMenu from '../CustomEmbedLinkMenu'
 // import Plyr from 'plyr-react'
-const Plyr: any = dynamic(() => import('plyr-react').then(m => (m as any).default ?? (m as any)), { ssr: false })
+const Plyr = dynamic(() => import('plyr-react').then(mod => mod.Plyr), { ssr: false })
 
 import 'plyr-react/plyr.css'
 
